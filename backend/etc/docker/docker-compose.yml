@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  socio-database:
+    image: "postgres:13-alpine"
+    restart: unless-stopped
+    ports:
+      - "4321:5432"
+    volumes:
+      - "socio-db-data:/var/lib/postgresql/data"
+    environment:
+      - "POSTGRES_USER=admin"
+      - "POSTGRES_PASSWORD=admin"
+      - "POSTGRES_DB=socio_db"
+volumes:
+  socio-db-data:

@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: "jdbc:postgresql://${SOCIO_DB_ENDPOINT}:5432/socio_db"
+    username: ${SOCIO_DB_USERNAME}
+    password: ${SOCIO_DB_PASSWORD}
+    driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerPostgreSQLDriver
+
+  flyway:
+    url: "jdbc:postgresql://${SOCIO_DB_ENDPOINT}:5432/socio_db"
+    user: ${SOCIO_DB_USERNAME}
+    password: ${SOCIO_DB_PASSWORD}
+
+aws:
+  s3:
+    mock: false

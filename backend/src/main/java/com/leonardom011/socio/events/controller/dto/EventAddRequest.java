@@ -1,0 +1,48 @@
+package com.leonardom011.socio.events.controller.dto;
+
+import com.leonardom011.socio.events.entity.Event;
+import com.leonardom011.socio.events.entity.EventCategory;
+import com.leonardom011.socio.users.entity.User;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.*;
+
+import java.time.LocalDateTime;
+
+@JsonSerialize
+public record EventAddRequest(
+        @NonNull String name,
+        String description,
+        @NonNull EventCategory category,
+        String city,
+        @NonNull String location,
+        @NonNull LocalDateTime dateTime,
+        @NonNull Boolean isAvailable
+) {
+
+    public EventAddRequest(Event event) {
+        this(
+                event.getName(),
+                event.getDescription(),
+                event.getCategory(),
+                event.getCity(),
+                event.getLocation(),
+                event.getDateTime(),
+                event.getIsAvailable()
+        );
+    }
+
+    public Event toEvent(User createdBy, LocalDateTime localDateTimeNow) {
+        return Event.builder()
+                .name(this.name)
+                .description(this.description)
+                .category(this.category)
+                .city(this.city)
+                .location(this.location)
+                .dateTime(this.dateTime)
+                .isAvailable(this.isAvailable)
+                .createdBy(createdBy)
+                .createdAt(localDateTimeNow)
+                .lastChange(localDateTimeNow)
+                .build();
+    }
+}

@@ -1,0 +1,59 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+
+spring:
+  data:
+    web:
+      pageable:
+        max-page-size: 10
+
+  jpa:
+    open-in-view: true
+    properties:
+      hibernate:
+        format_sql: true
+      database: postgresql
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  codec:
+    max-in-memory-size: 10MB
+
+  main:
+    banner-mode: off
+    web-application-type: servlet
+
+cors:
+  allowed-origins: "*"
+  allowed-methods: "GET,POST,PATCH,PUT,DELETE,OPTIONS,HEAD"
+  allowed-headers: "*,Requestor-Type,Authorization"
+  exposed-headers: "X-Get-Header"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+
+aws:
+  region: eu-central-1
+  s3:
+    mock: true
+    buckets:
+      images: socio-images
+
+springdoc:
+  show-actuator: true
+  location: "classpath:openapi/responses.json"
+
+logging:
+  file:
+    name: "logs/${random.uuid}.log"
+  level:
+    root: info
+    com.leonardom011.socio: trace
