@@ -1,6 +1,6 @@
 package com.leonardom011.socio.exception;
 
-import com.leonardom011.socio.events.controller.EventController;
+import com.leonardom011.socio.events.controller.EventsController;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class DefaultExceptionHandler {
 
-    Logger logger = LoggerFactory.getLogger(EventController.class);
+    Logger logger = LoggerFactory.getLogger(EventsController.class);
     private final Clock clock;
 
     @ExceptionHandler(EventNotFoundException.class)

@@ -1,6 +1,6 @@
 package com.leonardom011.socio.users.controller;
 
-import com.leonardom011.socio.auth.service.JwtService;
+import com.leonardom011.socio.jwt.service.JwtService;
 import com.leonardom011.socio.users.controller.dto.UserResponse;
 import com.leonardom011.socio.users.entity.Role;
 import com.leonardom011.socio.users.entity.User;

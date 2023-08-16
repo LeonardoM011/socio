@@ -1,7 +1,7 @@
 package com.leonardom011.socio.users.controller;
 
 import com.leonardom011.socio.exception.UserNotFoundException;
-import com.leonardom011.socio.users.service.UserService;
+import com.leonardom011.socio.users.service.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/user/")
+@RequestMapping("/api/v1/")
 @RequiredArgsConstructor
-public class UserController {
+public class UsersController {
 
-    private final UserService userService;
+    private final UsersService userService;
 
     @Operation(
             summary = "[AUTHENTICATED] get current logged in user info",
@@ -71,16 +71,16 @@ public class UserController {
             }
 
     )
-    @GetMapping("current-user")
+    @GetMapping("user/current")
     public ResponseEntity<?> get() throws UsernameNotFoundException {
         return ResponseEntity.ok(userService.getCurrentUserDetails());
     }
 
-    @GetMapping("{userId}")
+    @GetMapping("users/{userId}")
     public ResponseEntity<?> getUserId(@PathVariable UUID userId) throws UserNotFoundException {
         return ResponseEntity.ok(userService.getUserById(userId));
     }
-    @GetMapping("all")
+    @GetMapping("users")
     public ResponseEntity<?> getAllUsers(
             @ParameterObject Pageable pageable) {
 

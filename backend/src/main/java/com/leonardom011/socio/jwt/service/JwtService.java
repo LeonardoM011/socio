@@ -1,4 +1,4 @@
-package com.leonardom011.socio.auth.service;
+package com.leonardom011.socio.jwt.service;
 
 import com.leonardom011.socio.users.entity.User;
 import io.jsonwebtoken.Claims;

@@ -1,6 +1,6 @@
 package com.leonardom011.socio.users.service;
 
-import com.leonardom011.socio.auth.service.JwtService;
+import com.leonardom011.socio.jwt.service.JwtService;
 import com.leonardom011.socio.exception.UserNotFoundException;
 import com.leonardom011.socio.users.controller.dto.UserDTO;
 import com.leonardom011.socio.users.controller.dto.UserResponse;
@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UsersService {
 
     private final UserRepository userRepository;
     private final JwtService jwtService;

@@ -1,6 +1,6 @@
 package com.leonardom011.socio.events.service;
 
-import com.leonardom011.socio.auth.service.JwtService;
+import com.leonardom011.socio.jwt.service.JwtService;
 import com.leonardom011.socio.events.controller.dto.EventDTO;
 import com.leonardom011.socio.events.entity.Event;
 import com.leonardom011.socio.events.entity.Going;
@@ -23,7 +23,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class GoingService {
+public class AttendsService {
 
     private final EventRepository eventRepository;
     private final JwtService jwtService;

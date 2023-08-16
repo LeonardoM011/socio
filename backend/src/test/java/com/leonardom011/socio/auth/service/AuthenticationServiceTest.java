@@ -1,5 +1,6 @@
 package com.leonardom011.socio.auth.service;
 
+import com.leonardom011.socio.jwt.service.JwtService;
 import com.leonardom011.socio.users.repository.UserRepository;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;

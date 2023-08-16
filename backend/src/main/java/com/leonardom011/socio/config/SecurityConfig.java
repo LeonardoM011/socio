@@ -1,6 +1,6 @@
 package com.leonardom011.socio.config;
 
-import com.leonardom011.socio.auth.service.JWTAuthenticationFilter;
+import com.leonardom011.socio.jwt.filter.JWTAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,19 +37,20 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/v1/user/{userId}").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/user/all").permitAll()
 
-                .requestMatchers(HttpMethod.GET, "/api/v1/event/all").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/v1/event/for-user/{userId}").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/v1/event/{eventId}").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/event/add").hasAnyAuthority("ORGANIZER")
-                .requestMatchers(HttpMethod.DELETE, "/api/v1/event/{eventId}").hasAnyAuthority("ORGANIZER")
-                .requestMatchers(HttpMethod.PUT, "/api/v1/event/update").hasAnyAuthority("ORGANIZER")
-                .requestMatchers(HttpMethod.GET, "/api/v1/event/categories").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/event/{eventId}/image").hasAnyAuthority("ORGANIZER")
-                .requestMatchers(HttpMethod.GET, "/api/v1/event/{eventId}/image").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/v1/event/liked-by/{userId}").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/v1/event/liked-for/{eventId}").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/event/like/{eventId}").authenticated()
-                .requestMatchers(HttpMethod.DELETE, "/api/v1/event/remove-like/{eventId}").authenticated()
+                .requestMatchers(HttpMethod.GET, "/api/v1/events").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/events/{eventId}").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/events/{eventId}").hasAnyAuthority("ORGANIZER")
+                .requestMatchers(HttpMethod.PUT, "/api/v1/events/{eventId}").hasAnyAuthority("ORGANIZER")
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/events/{eventId}").hasAnyAuthority("ORGANIZER")
+                .requestMatchers(HttpMethod.GET, "/api/v1/events-user/{userUUID}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/events/{eventId}/image").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/events/{eventId}/image").hasAnyAuthority("ORGANIZER")
+                .requestMatchers(HttpMethod.GET, "/api/v1/events-categories").permitAll()
+
+//                .requestMatchers(HttpMethod.GET, "/api/v1/event/liked-by/{userId}").permitAll()
+//                .requestMatchers(HttpMethod.GET, "/api/v1/event/liked-for/{eventId}").permitAll()
+//                .requestMatchers(HttpMethod.POST, "/api/v1/event/like/{eventId}").authenticated()
+//                .requestMatchers(HttpMethod.DELETE, "/api/v1/event/remove-like/{eventId}").authenticated()
 
                 .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()

@@ -1,11 +1,10 @@
 package com.leonardom011.socio.events.service;
 
-import com.leonardom011.socio.auth.service.JwtService;
+import com.leonardom011.socio.jwt.service.JwtService;
 import com.leonardom011.socio.events.controller.dto.EventDTO;
 import com.leonardom011.socio.events.entity.Event;
 import com.leonardom011.socio.events.entity.Interested;
 import com.leonardom011.socio.events.repository.EventRepository;
-import com.leonardom011.socio.exception.*;
 import com.leonardom011.socio.users.controller.dto.UserDTO;
 import com.leonardom011.socio.users.entity.User;
 import com.leonardom011.socio.users.repository.UserRepository;
@@ -24,7 +23,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class InterestedService {
+public class InterestsService {
 
     private final EventRepository eventRepository;
     private final JwtService jwtService;

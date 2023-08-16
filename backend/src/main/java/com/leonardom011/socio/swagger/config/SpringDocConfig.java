@@ -1,4 +1,4 @@
-package com.leonardom011.socio.config;
+package com.leonardom011.socio.swagger.config;
 
 import com.leonardom011.socio.config.dto.SwaggerResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -60,8 +60,10 @@ public class SpringDocConfig {
     }
 
     @Bean
-    public GroupedOpenApi authenticationApi() {
-        String [] paths = {"/api/v1/auth/**"};
+    public GroupedOpenApi AuthenticationApi() {
+        String [] paths = {
+                "/api/v1/auth/**"
+        };
         return GroupedOpenApi.builder()
                 .group("Authentication")
                 .pathsToMatch(paths)
@@ -69,19 +71,39 @@ public class SpringDocConfig {
     }
 
     @Bean
-    public GroupedOpenApi EventApi() {
-        String [] paths = {"/api/v1/event/**"};
+    public GroupedOpenApi EventsApi() {
+        String [] paths = {
+                "/api/v1/events",
+                "/api/v1/events/{eventId}",
+                "/api/v1/events-user/{userUUID}",
+                "/api/v1/events/{eventId}/image",
+                "/api/v1/events/{eventId}",
+                "/api/v1/events/{eventId}",
+                "/api/v1/events-categories",
+
+                "/api/v1/attends-events/{userUUID}",
+                "/api/v1/attends-users/{eventId}",
+                "/api/v1/attends/{eventId}",
+
+                "/api/v1/interests-events/{UserUUID}",
+                "/api/v1/interests-users/{eventId}",
+                "/api/v1/interests/{eventId}"
+        };
         return GroupedOpenApi.builder()
-                .group("Event")
+                .group("Events")
                 .pathsToMatch(paths)
                 .build();
     }
 
     @Bean
-    public GroupedOpenApi UserApi() {
-        String [] paths = {"/api/v1/user/**"};
+    public GroupedOpenApi UsersApi() {
+        String [] paths = {
+                "/api/v1/user/current",
+                "/api/v1/users/{userUUID}",
+                "/api/v1/users"
+        };
         return GroupedOpenApi.builder()
-                .group("User")
+                .group("Users")
                 .pathsToMatch(paths)
                 .build();
     }

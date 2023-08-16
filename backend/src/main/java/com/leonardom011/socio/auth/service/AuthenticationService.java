@@ -5,6 +5,7 @@ import com.leonardom011.socio.auth.controller.dto.AuthenticationResponse;
 import com.leonardom011.socio.auth.controller.dto.RegisterRequest;
 import com.leonardom011.socio.exception.CouldNotRegisterException;
 import com.leonardom011.socio.exception.WrongUsernameOrPasswordException;
+import com.leonardom011.socio.jwt.service.JwtService;
 import com.leonardom011.socio.users.controller.dto.UserDTO;
 import com.leonardom011.socio.users.entity.User;
 import com.leonardom011.socio.users.repository.UserRepository;

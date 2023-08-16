@@ -1,5 +1,6 @@
-package com.leonardom011.socio.auth.service;
+package com.leonardom011.socio.jwt.filter;
 
+import com.leonardom011.socio.jwt.service.JwtService;
 import io.micrometer.common.lang.NonNull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

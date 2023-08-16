@@ -1,6 +1,6 @@
 package com.leonardom011.socio.events.service;
 
-import com.leonardom011.socio.auth.service.JwtService;
+import com.leonardom011.socio.jwt.service.JwtService;
 import com.leonardom011.socio.aws.config.S3Buckets;
 import com.leonardom011.socio.aws.service.S3Service;
 import com.leonardom011.socio.events.controller.dto.EventAddRequest;
@@ -8,7 +8,6 @@ import com.leonardom011.socio.events.controller.dto.EventDTO;
 import com.leonardom011.socio.events.controller.dto.EventPutRequest;
 import com.leonardom011.socio.events.entity.Event;
 import com.leonardom011.socio.events.repository.EventRepository;
-import com.leonardom011.socio.exception.*;
 import com.leonardom011.socio.users.entity.User;
 import com.leonardom011.socio.users.repository.UserRepository;
 import com.leonardom011.socio.exception.EventNotFoundException;
@@ -21,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class EventService {
+public class EventsService {
 
     private final EventRepository eventRepository;
     private final JwtService jwtService;
@@ -44,12 +44,12 @@ public class EventService {
         return eventRepository.findAll(pageable).map(EventDTO::new);
     }
 
-    public Page<EventDTO> getAllEventsForUser(Pageable pageable, UUID userId) throws DataAccessException {
-        return eventRepository.findAllByCreatedBy(pageable, userId).map(EventDTO::new);
+    public Page<EventDTO> getAllEventsForUser(Pageable pageable, UUID userUUID) throws DataAccessException {
+        return eventRepository.findAllByCreatedBy(pageable, userUUID).map(EventDTO::new);
     }
 
-    public EventDTO getEvent(Long id) throws EventNotFoundException {
-        Event event = eventRepository.findById(id).orElseThrow(() -> new EventNotFoundException(id));
+    public EventDTO getEvents(Long eventId) throws EventNotFoundException {
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new EventNotFoundException(eventId));
         return new EventDTO(event);
     }
 
@@ -74,16 +74,17 @@ public class EventService {
         }
     }
 
-    public void updateEvent(EventPutRequest request) throws Exception {
-        Event targetEvent = eventRepository.findById(request.id()).orElseThrow(() ->
-                new EventNotFoundException(request.id()));
+    public void updateEvent(Long eventId, EventPutRequest request) throws Exception {
+        Event targetEvent = eventRepository.findById(eventId).orElseThrow(() ->
+                new EventNotFoundException(eventId));
         User currentUser = jwtService.getCurrentUser();
         if (!Objects.equals(targetEvent.getCreatedBy().getId(), currentUser.getId())) {
             throw new UserNotOwnerException();
         }
-        eventRepository.save(request.toEventFill(targetEvent, LocalDateTime.now(clock)));
+        eventRepository.save(request.toEventFill(targetEvent, eventId, LocalDateTime.now(clock)));
     }
 
+    @Transactional
     public void uploadImage(Long eventId, MultipartFile file) {
         checkIfEventExists(eventId);
         String eventImageId = UUID.randomUUID().toString();

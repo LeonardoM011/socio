@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 @JsonSerialize
 public record EventPutRequest(
-        @NonNull Long id,
         @NonNull String name,
         String description,
         @NonNull EventCategory category,
@@ -23,7 +22,6 @@ public record EventPutRequest(
 
     public EventPutRequest(Event event) {
         this(
-                event.getId(),
                 event.getName(),
                 event.getDescription(),
                 event.getCategory(),
@@ -34,9 +32,9 @@ public record EventPutRequest(
         );
     }
 
-    public Event toEventFill(Event event, LocalDateTime localDateTimeNow) {
+    public Event toEventFill(Event event, Long eventId, LocalDateTime localDateTimeNow) {
         return Event.builder()
-                .id(this.id)
+                .id(eventId)
                 .name(this.name)
                 .description(this.description)
                 .category(this.category)

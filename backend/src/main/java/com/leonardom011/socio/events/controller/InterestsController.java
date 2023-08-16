@@ -1,7 +1,6 @@
 package com.leonardom011.socio.events.controller;
 
-import com.leonardom011.socio.events.service.InterestedService;
-import com.leonardom011.socio.exception.*;
+import com.leonardom011.socio.events.service.InterestsService;
 import com.leonardom011.socio.exception.EventAlreadyInterestedToException;
 import com.leonardom011.socio.exception.EventNotFoundException;
 import com.leonardom011.socio.exception.EventNotInterestedToException;
@@ -17,30 +16,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/event/")
+@RequestMapping("/api/v1/")
 @RequiredArgsConstructor
-public class InterestedController {
+public class InterestsController {
 
-    private final InterestedService interestedService;
-    Logger logger = LoggerFactory.getLogger(InterestedController.class);
+    private final InterestsService interestedService;
+    Logger logger = LoggerFactory.getLogger(InterestsController.class);
 
-    @GetMapping("all-events-interested-for-user/{userId}")
+    @GetMapping("interests-events/{userId}")
     public ResponseEntity<?> getEventsInterestedForUser(@ParameterObject Pageable pageable, @PathVariable UUID userId) throws UserNotFoundException {
         return ResponseEntity.ok(interestedService.getAllEventsInterestedForUser(pageable, userId));
     }
 
-    @GetMapping("all-users-interested-to-event/{eventId}")
+    @GetMapping("interests-users/{eventId}")
     public ResponseEntity<?> getUsersInterestedToEvent(@ParameterObject Pageable pageable, @PathVariable Long eventId) throws EventNotFoundException {
         return ResponseEntity.ok(interestedService.getAllUsersInterestedToEvent(pageable, eventId));
     }
 
-    @PostMapping("interested/{eventId}")
+    @PostMapping("interests/{eventId}")
     public ResponseEntity<?> interestedToEvent(@PathVariable Long eventId) throws EventNotFoundException, EventAlreadyInterestedToException {
         interestedService.interestedToEvent(eventId);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("remove-interested/{eventId}")
+    @DeleteMapping("interests/{eventId}")
     public ResponseEntity<?> removeInterestedToEvent(@PathVariable Long eventId)
             throws EventNotFoundException, EventNotInterestedToException {
         interestedService.removeInterestedToEvent(eventId);
